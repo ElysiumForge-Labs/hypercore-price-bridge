@@ -1,0 +1,26 @@
+[profile.default]
+src = "src"
+test = "test"
+out = "out"
+libs = []
+solc = "0.8.28"
+optimizer = true
+optimizer_runs = 200
+
+[rpc_endpoints]
+hyperevm_testnet = "https://rpc.hyperliquid-testnet.xyz/evm"
+elysium_testnet = "https://testnet-rpc.elysium.kinetiq.xyz"
+
+[fmt]
+line_length = 100
+
+[lint]
+# Each of these was checked against this code and does not apply.
+exclude_lints = [
+    "block-timestamp",        # timestamps only measure how old a price is, in seconds
+    "calls-loop",             # the calls inside loops are HyperCore precompile reads
+    "missing-zero-check",     # constructor arguments, set once by whoever deploys
+    "reentrancy-events",      # the one external call goes to Elysium's Inbox, fixed at deploy
+    "require-revert-in-loop", # one bad entry must refuse the whole batch
+    "unsafe-typecast",        # uint64 holds a unix timestamp for billions of years
+]
